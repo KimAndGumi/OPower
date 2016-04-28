@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head lang="fr">
+		<meta charset="UTF-8">
+		<title>OPower</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css"/>
+	</head>
+	<body ng-app="opower">
+		<h1>Bienvenue sur OPower !</h1>
+		<div ng-controller='utilisateurs' ng-init='getListeUtilisateurs()'>
+			<ul>
+				<li ng-repeat="u in listeUtilisateurs">{{u.prenom}} {{u.nom}} : consommation totale <button ng-click='afficherInfos(u.id)'>Afficher les infos</button></li>
+			</ul>
+		</div>
+		<div ng-controller='ajouterUtilisateur'>
+			<button ng-click='formOK = true'>Ajouter un utilisateur</button>
+			<form ng-show='formOK'>
+				Prénom : <input type='text' name='prenom'><br>
+				Nom : <input type='text' name='nom'><br>
+				Mail : <input type='text' name='mail'><br>
+				
+				<!--Amis : <p ng-repeat="u in listeUtilisateurs"><input type='checkbox' name='ami'  value="{{u.id}}">{{u.prenom}} {{u.nom}} </p>-->
+				
+				<input type='submit' value="Valider">
+			</form>
+		</div>
+		<div ng-controller='infoUtilisateur' ng-show='afficheOK'>
+			Prénom : {{utilisateur.prenom}}<br>
+			Nom : {{utilisateur.nom}}<br>
+			Mail : {{utilisateur.mail}}
+		</div>
+		
+		<!-- Dependencies -->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/angular.min.js"></script>
+		<script src="js/angular-resource.min.js"></script>	
+		<!-- Pokedex app -->
+		<script src="js/opower.js"></script>
+	</body>
+</html>
