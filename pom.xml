@@ -15,6 +15,16 @@
       <scope>test</scope>
     </dependency>
 	<!-- persistence-->
+	<!--<dependency>
+		<groupId>org.eclipse.persistence</groupId>
+		<artifactId>org.eclipse.persistence.jpa</artifactId>
+		<version>2.5.2</version>
+	</dependency>
+	<dependency>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+		<version>5.1.36</version>
+	</dependency>-->
 	<dependency>
 		<groupId>org.hibernate</groupId>
 		<artifactId>hibernate-entitymanager</artifactId>
@@ -26,26 +36,42 @@
 		<version>4.3.2.Final</version>
 	</dependency>
 	<dependency>
+		<groupId>org.hsqldb</groupId>
+		<artifactId>hsqldb</artifactId>
+		<version>2.3.3</version>
+	</dependency>
+	<dependency>
 		<groupId>org.eclipse.persistence</groupId>
 		<artifactId>org.eclipse.persistence.jpa</artifactId>
 		<version>2.5.2</version>
 	</dependency>
 	<!-- serialization-->
-	<dependency>
+	<!--<dependency>
 		<groupId>org.glassfish.jersey.media</groupId>
 		<artifactId>jersey-media-moxy</artifactId>
 		<version>2.0</version>
+	</dependency>-->
+	<dependency>
+		<groupId>com.sun.jersey</groupId>
+		<artifactId>jersey-json</artifactId>
+		<version>1.18.3</version>
 	</dependency>
 	<!-- service Rest-->
-	<dependency>
+	<!--<dependency>
 		<groupId>org.glassfish.jersey.containers</groupId>
 		<artifactId>jersey-container-servlet</artifactId>
 		<version>2.6</version>
+	</dependency>-->
+	<dependency>
+		<groupId>com.sun.jersey</groupId>
+		<artifactId>jersey-servlet</artifactId>
+		<version>1.18.3</version>
 	</dependency>
 	<dependency>
 		<groupId>javax.servlet</groupId>
 		<artifactId>javax.servlet-api</artifactId>
 		<version>3.1.0</version>
+		<scope>provided</scope>
 	</dependency>
 	<!--<dependency>
 		<groupId>com.sun.jersey</groupId>

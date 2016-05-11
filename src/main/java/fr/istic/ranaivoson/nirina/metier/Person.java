@@ -3,6 +3,7 @@ package fr.istic.ranaivoson.nirina.metier;
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 import java.io.Serializable;
+
 //import java.util.List;
 //import java.util.ArrayList;
 
@@ -19,25 +20,29 @@ public class Person implements Serializable{
 	
 	//Constructeur
 	public Person(){
-		//homes = new ArrayList();
+		//homes = new ArrayList<Home>();
 	}
 	
 	public void setId(int id){
 		this.id = id;
-	}
-	
+	}	
 	public void setNom(String nom){
 		this.nom = nom;
 	}
 	public void setPrenom(String prenom){
 		this.prenom = prenom;
-	}
-	
+	}	
 	public void setMail(String mail){
 		this.mail = mail;
 	}
-	
-	//setHomes, addHome ?
+	/*
+	public void setHomes(List<Home> homes){
+		this.homes = new ArrayList<Home>(homes);
+	}
+	public void addHome(Home home){
+		this.homes.add(home);
+	}
+	*/
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="PERSON_ID")
@@ -64,7 +69,11 @@ public class Person implements Serializable{
 		return this.mail;
 	}
 	
-	/*@OneToMany(mappedBy="Person")
+	//@OneToMany(mappedBy="Person")
+	/*@ManyToMany
+	@JoinTable(name="Person_home",
+	joinColumns=@JoinColumn(name="Person_id", referencedColumnName="Person_id"),
+	inverseJoinColumns=@JoinColumn(name="Home_id",referencedColumnName="Home_id"))
 	public List<Home> getHomes(){
 		return this.homes;
 	}*/

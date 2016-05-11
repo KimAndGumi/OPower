@@ -2,19 +2,19 @@ var opowerApp = angular.module('opower', ['ngResource']);
 opowerApp.controller('utilisateurs', function($scope,$log,$http,$rootScope,commun){
 	$rootScope.afficheOK = false;
 	$scope.getListeUtilisateurs = function(){
-		/*$http({
+		$http({
 			method : 'GET',
 			url : opowerRestURI+'person/all'
 		}).then(function successCallback(response) {
-			$scope.listeUtilisateurs = response.data;
+			$rootScope.listeUtilisateurs = response.data;
 		}, function errorCallback(response) {
 			$log.log("probleme");
-		});*/
-		$rootScope.listeUtilisateurs = [
+		});
+		/*$rootScope.listeUtilisateurs = [
 			{"id":1,"nom":"Ranaivoson","prenom":"Nirina","mail":"coucou1"},
 			{"id":2,"nom":"Giffrain","prenom":"Aurélie","mail":"coucou2"},
 			{"id":3,"nom":"Ranaivoson","prenom":"Cléa","mail":"coucou3"}
-		]
+		]*/
 	}
 	$scope.afficherInfos = function(idn){
 		/*$http({
@@ -25,7 +25,7 @@ opowerApp.controller('utilisateurs', function($scope,$log,$http,$rootScope,commu
 		}, function errorCallback(response) {
 			$log.log("probleme");
 		});*/
-			$log.log(idn)
+			//$log.log(idn)
 		for(i in $rootScope.listeUtilisateurs)
 		{
 			if ($rootScope.listeUtilisateurs[i].id == idn)
@@ -37,6 +37,24 @@ opowerApp.controller('utilisateurs', function($scope,$log,$http,$rootScope,commu
 })
 
 opowerApp.controller('ajouterUtilisateur', function($scope,$log,$http){
+	/*$scope.stringData = 'mail='+$scope.formMail
+		+'&nom='+$scope.formNom
+		+'&prenom='+$scope.formPrenom*/	
+	$scope.poster = function(){
+		$log.log($scope.stringData)
+		$http({
+			method : 'POST',
+			url : opowerRestURI+'person/',
+			headers : {'Content-Type':'application/x-www-form-urlencoded'},
+			data : 'mail='+$scope.formMail
+			+'&nom='+$scope.formNom
+			+'&prenom='+$scope.formPrenom
+		}).then(function successCallback(response) {
+			$scope.formOK = false;
+		}, function errorCallback(response) {
+			$log.log("probleme Post");
+		});
+	}
 	
 })
 

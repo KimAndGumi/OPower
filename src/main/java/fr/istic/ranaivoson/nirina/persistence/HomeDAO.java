@@ -6,46 +6,46 @@ import fr.istic.ranaivoson.nirina.metier.*;
 import javax.persistence.EntityManager;
 //import static fr.istic.ranaivoson.nirina.persistence.EntityManageHelper;
 
-public class HomeDAO /*extends EntityManagerHelper*/{
+public class HomeDAO extends EntityManagerHelper{
 	
-	private EntityManagerHelper emh;
+	//private EntityManagerHelper emh;
 	public void createHome(List<Home> homes){
-		EntityManager em = emh.getEntityManager();
+		EntityManager em = getEntityManager();
 		try{
-			emh.beginTransaction();
+			beginTransaction();
 			for (Home p:homes){
 				em.persist(p);
 			}
-			emh.commit();
+			commit();
 		}catch(Exception re)
 		{
 			//if(tx!=null)
 				//System.out.println("Something went wrong");
-			emh.rollback();
+			rollback();
 		}finally{
-			emh.closeEntityManager();
+			closeEntityManager();
 		}
 	}
 	
 	public void createHome(Home home){ //cas où il n'y a qu'un seul nouvel utilisateur
-		EntityManager em = emh.getEntityManager();
+		EntityManager em = getEntityManager();
 		try{
-			emh.beginTransaction();
+			beginTransaction();
 			em.persist(home);
-			emh.commit();
+			commit();
 		}catch(Exception re)
 		{
 			//if(tx!=null)
 				//System.out.println("Something went wrong");
-			emh.rollback();
+			rollback();
 		}finally{
-			emh.closeEntityManager();
+			closeEntityManager();
 		}
 	}
 	
 	public List<Home> retrieveAll(){
 		List<Home> res = new ArrayList<Home>();
-		EntityManager em = emh.getEntityManager();
+		EntityManager em = getEntityManager();
 		try{
 			res = em.createQuery("select p from Home p").getResultList();
 			
@@ -53,21 +53,21 @@ public class HomeDAO /*extends EntityManagerHelper*/{
 		{
 			//System.out.println("Something went wrong");
 		}finally{
-			emh.closeEntityManager();
+			closeEntityManager();
 		}
 		return res;
 	}
 
 	public Home retrieveById(int id){
 		Home res = new Home();
-		EntityManager em = emh.getEntityManager();
+		EntityManager em = getEntityManager();
 		try{
 			res = em.find(Home.class,id);
 		}catch(Exception re)
 		{
 			//System.out.println("Something went wrong");
 		}finally{
-			emh.closeEntityManager();
+			closeEntityManager();
 		}
 		return res;
 	}

@@ -9,25 +9,27 @@
 		<h1>Bienvenue sur OPower !</h1>
 		<div ng-controller='utilisateurs' ng-init='getListeUtilisateurs()'>
 			<ul>
-				<li ng-repeat="u in listeUtilisateurs">{{u.prenom}} {{u.nom}} : consommation totale <button ng-click='afficherInfos(u.id)'>Afficher les infos</button></li>
+				<li ng-repeat="u in listeUtilisateurs">{{u.prenom}} {{u.nom}} <button ng-click='afficherInfos(u.id)'>Afficher les infos</button></li>
 			</ul>
+			<button ng-click='getListeUtilisateurs()'>Mettre à jour</button>
 		</div>
 		<div ng-controller='ajouterUtilisateur'>
 			<button ng-click='formOK = true'>Ajouter un utilisateur</button>
 			<form ng-show='formOK'>
-				Prénom : <input type='text' name='prenom'><br>
-				Nom : <input type='text' name='nom'><br>
-				Mail : <input type='text' name='mail'><br>
+				Prénom : <input type='text' ng-model="formPrenom"><br>
+				Nom : <input type='text' ng-model="formNom"><br>
+				Mail : <input type='text' ng-model="formMail"><br>
 				
 				<!--Amis : <p ng-repeat="u in listeUtilisateurs"><input type='checkbox' name='ami'  value="{{u.id}}">{{u.prenom}} {{u.nom}} </p>-->
 				
-				<input type='submit' value="Valider">
+				<input type='submit' ng-click="poster()" value="Valider">
 			</form>
 		</div>
 		<div ng-controller='infoUtilisateur' ng-show='afficheOK'>
 			Prénom : {{utilisateur.prenom}}<br>
 			Nom : {{utilisateur.nom}}<br>
-			Mail : {{utilisateur.mail}}
+			Mail : {{utilisateur.mail}}<br>
+			<button ng-click='afficheOK = false'>Cacher</button>
 		</div>
 		
 		<!-- Dependencies -->

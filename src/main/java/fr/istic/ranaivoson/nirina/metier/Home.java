@@ -9,28 +9,35 @@ import javax.persistence.*;
 public class Home{
 	
 	private int id;
-	private String nom;
+	private String adresse;
 	private int taille;
 	
-	public void setNom(String nom){
-		this.nom = nom;
+	public Home(){
+		
+	}
+	
+	public void setId(int id){
+		this.id = id;
+	}
+	public void setAdresse(String adresse){
+		this.adresse =adresse;
 	}
 	public void setTaille(int taille){
 		this.taille = taille;
 	}
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="HomeID")
+	@Column(name="Home_ID")
 	public int getId(){
 		return this.id;
 	}
 	
-	@Column(name="NAME")
-	public String getNom(){
-		return this.nom;
+	@Column(name="ADDRESS")
+	public String getAdresse(){
+		return this.adresse;
 	}
 	
-	@Column(name="SIZE")
+	@Column(name="HSIZE")
 	public int getTaille(){
 		return this.taille;
 	}
