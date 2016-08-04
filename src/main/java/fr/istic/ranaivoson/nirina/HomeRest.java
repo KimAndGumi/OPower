@@ -38,7 +38,10 @@ public class HomeRest {
 		//et si c'est null ?
 	}
 	
-	/*@POST
-	@Consumes({MediaType.APPLICATION_JSON})
-	 public void get*/
+	@POST
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	 public void createHome(@FormParam("rooms") int rooms,@FormParam("taille") int taille){
+		 Home h = new Home(rooms,taille);
+		 hdao.createHome(h);
+	 }
 }

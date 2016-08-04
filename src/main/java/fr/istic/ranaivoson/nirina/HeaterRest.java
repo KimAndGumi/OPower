@@ -14,41 +14,41 @@ import javax.ws.rs.core.MediaType;
 
 import java.util.List;
 
-@Path("/person")
-public class PersonRest {
+@Path("/heater")
+public class HeaterRest {
 	
-	PersonDAO pdao = new PersonDAO();
-	//private static List<Person> persons = PersonDAO.retrieveAll();
+	HeaterDAO hdao = new HeaterDAO();
+	//private static List<heater> heaters = heaterDAO.retrieveAll();
 	@GET
 	@Path("/all")
 	@Produces({MediaType.APPLICATION_JSON})
-	public List<Person> getAll(){
-		//return persons;
-		return pdao.retrieveAll();
+	public List<Heater> getAll(){
+		//return heaters;
+		return hdao.retrieveAll();
 	}
 	
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Person getPersonById(@PathParam("id") String id){
-		/*for (Person p:persons){
+	public Heater getHeaterById(@PathParam("id") String id){
+		/*for (heater p:heaters){
 			if (p.getId()==n)
 				return p;
 		}*/
 		//sinon tester dans la BDD
-		return pdao.retrieveById(Integer.parseInt(id));
+		return hdao.retrieveById(Integer.parseInt(id));
 		//et si c'est null ?
 	}
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	 public void createPerson(@FormParam("mail") String email, @FormParam("nom") String nom, @FormParam("prenom") String prenom){
+	 public void createHeater(@FormParam("nom") String nom, @FormParam("prenom") int consommation){
 		 //System.out.println("Post request received");
-		 /*Person p = new Person();
+		 /*heater p = new heater();
 		 p.setMail(email);
 		 p.setNom(nom);
 		 p.setPrenom(prenom);*/
-		 Person p = new Person(nom,prenom,email);
-		 pdao.createPerson(p);
+		 Heater h = new Heater(nom,consommation);
+		 hdao.createHeater(h);
 	 }
 }

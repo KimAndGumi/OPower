@@ -1,45 +1,80 @@
 package fr.istic.ranaivoson.nirina.metier;
 
 import javax.persistence.*;
-//import java.util.List;
-//import java.util.ArrayList;
+import javax.xml.bind.annotation.*;
+import java.io.Serializable;
+
+import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Table(name="HOME")
-public class Home{
+@XmlRootElement(name="home")
+public class Home implements Serializable{
 	
 	private int id;
-	private String adresse;
+	private int rooms;
 	private int taille;
-	
+	private List<Heater> heaters;
+	private List<ElectronicDevice> elecdevices;
+	//Constructeur
 	public Home(){
 		
+	}
+	public Home(int rooms,int taille){
+		this.rooms = rooms;
+		this.taille = taille;
+		this.heaters = new ArrayList<Heater>();
+		this.elecdevices = new ArrayList<ElectronicDevice>();
 	}
 	
 	public void setId(int id){
 		this.id = id;
 	}
-	public void setAdresse(String adresse){
-		this.adresse =adresse;
+	public void setrooms(int rooms){
+		this.rooms =rooms;
 	}
 	public void setTaille(int taille){
 		this.taille = taille;
 	}
+	public void setHeaters(List<Heater> heaters){
+		this.heaters = new ArrayList<Heater>(heaters);
+	}
+	public void addHeaters(Heater heater){
+		this.heaters.add(heater);
+	}
+	public void setElecDevices(List<ElectronicDevice> elecdevices){
+		this.elecdevices = new ArrayList<ElectronicDevice>(elecdevices);
+	}
+	public void addElecDevices(ElectronicDevice elecdevice){
+		this.elecdevices.add(elecdevice);
+	}
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="Home_ID")
+	@Column(name="HOME_ID")
+	@XmlElement
 	public int getId(){
 		return this.id;
 	}
-	
-	@Column(name="ADDRESS")
-	public String getAdresse(){
-		return this.adresse;
+	@Column(name="ROOMS")
+	@XmlElement
+	public String getRooms(){
+		return this.rooms;
 	}
-	
 	@Column(name="HSIZE")
+	@XmlElement
 	public int getTaille(){
 		return this.taille;
 	}
-	
+	//@Column(nullable = true)
+	@OneToMany
+	@XmlElement(type=Heater.class)
+	public List<Heater> getHeaters(){
+		return this.heaters;
+	}
+	@OneToMany
+	@XmlElement(type=ElectronicDevice.class)
+	public List<ElectronicDevice> getElecDevices(){
+		return this.elecdevices;
+	}
 }

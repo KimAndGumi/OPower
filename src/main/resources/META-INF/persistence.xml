@@ -10,6 +10,8 @@
 		<!--<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
 		<class>fr.istic.ranaivoson.nirina.metier.Person</class>
 		<class>fr.istic.ranaivoson.nirina.metier.Home</class>
+		<class>fr.istic.ranaivoson.nirina.metier.Heater</class>
+		<class>fr.istic.ranaivoson.nirina.metier.ElectronicDevice</class>
 		<properties>
 			<!--<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url"    value="jdbc:mysql://localhost/OPowerDB" />
