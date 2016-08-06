@@ -2,14 +2,12 @@ package fr.istic.ranaivoson.nirina.persistence;
 
 import java.util.List;
 import java.util.ArrayList;
-import fr.istic.ranaivoson.nirina.metier.*;
+import fr.istic.ranaivoson.nirina.metier.Home;
 import javax.persistence.EntityManager;
-//import static fr.istic.ranaivoson.nirina.persistence.EntityManageHelper;
 
 public class HomeDAO extends EntityManagerHelper{
 	
-	//private EntityManagerHelper emh;
-	public void createHome(List<Home> homes){
+	/*public void create(List<Home> homes){
 		EntityManager em = getEntityManager();
 		try{
 			beginTransaction();
@@ -25,9 +23,9 @@ public class HomeDAO extends EntityManagerHelper{
 		}finally{
 			closeEntityManager();
 		}
-	}
+	}*/
 	
-	public void createHome(Home home){ //cas où il n'y a qu'un seul nouvel utilisateur
+	public void create(Home home){ //cas où il n'y a qu'un seul nouvel utilisateur
 		EntityManager em = getEntityManager();
 		try{
 			beginTransaction();
@@ -35,8 +33,7 @@ public class HomeDAO extends EntityManagerHelper{
 			commit();
 		}catch(Exception re)
 		{
-			//if(tx!=null)
-				//System.out.println("Something went wrong");
+			System.out.println("create<Home> went wrong");
 			rollback();
 		}finally{
 			closeEntityManager();
@@ -47,11 +44,10 @@ public class HomeDAO extends EntityManagerHelper{
 		List<Home> res = new ArrayList<Home>();
 		EntityManager em = getEntityManager();
 		try{
-			res = em.createQuery("select p from Home p").getResultList();
-			
+			res = em.createQuery("select h from Home h").getResultList();
 		}catch(Exception re)
 		{
-			//System.out.println("Something went wrong");
+			System.out.println("retrieveAll<Home> went wrong");
 		}finally{
 			closeEntityManager();
 		}
@@ -65,11 +61,40 @@ public class HomeDAO extends EntityManagerHelper{
 			res = em.find(Home.class,id);
 		}catch(Exception re)
 		{
-			//System.out.println("Something went wrong");
+			System.out.println("retrieve<Home>ById went wrong");
 		}finally{
 			closeEntityManager();
 		}
 		return res;
 	}
-	//pas de delete, pas d'update pour le moment ?
+
+	public void update(Home h){
+		EntityManager em = getEntityManager();
+		try{
+			beginTransaction();
+			em.merge(h);
+			commit();
+		}catch(Exception re)
+		{
+			System.out.println("update<Home> went wrong");
+			rollback();
+		}finally{
+			closeEntityManager();
+		}
+	}
+	
+	public void delete(Home h){
+		EntityManager em = getEntityManager();
+		try{
+			beginTransaction();
+			em.remove(h);
+			commit();
+		}catch(Exception re)
+		{
+			System.out.println("delete<Home> went wrong");
+			rollback();
+		}finally{
+			closeEntityManager();
+		}
+	}
 }

@@ -1,7 +1,7 @@
 package fr.istic.ranaivoson.nirina;
 
-import fr.istic.ranaivoson.nirina.metier.*;
-import fr.istic.ranaivoson.nirina.persistence.*;
+import fr.istic.ranaivoson.nirina.metier.Heater;
+import fr.istic.ranaivoson.nirina.persistence.HeaterDAO;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -13,17 +13,17 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.core.MediaType;
 
 import java.util.List;
+//import java.util.Integer;
 
 @Path("/heater")
 public class HeaterRest {
 	
 	HeaterDAO hdao = new HeaterDAO();
-	//private static List<heater> heaters = heaterDAO.retrieveAll();
+	
 	@GET
 	@Path("/all")
 	@Produces({MediaType.APPLICATION_JSON})
 	public List<Heater> getAll(){
-		//return heaters;
 		return hdao.retrieveAll();
 	}
 	
@@ -31,24 +31,13 @@ public class HeaterRest {
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Heater getHeaterById(@PathParam("id") String id){
-		/*for (heater p:heaters){
-			if (p.getId()==n)
-				return p;
-		}*/
-		//sinon tester dans la BDD
 		return hdao.retrieveById(Integer.parseInt(id));
-		//et si c'est null ?
 	}
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	 public void createHeater(@FormParam("nom") String nom, @FormParam("prenom") int consommation){
-		 //System.out.println("Post request received");
-		 /*heater p = new heater();
-		 p.setMail(email);
-		 p.setNom(nom);
-		 p.setPrenom(prenom);*/
-		 Heater h = new Heater(nom,consommation);
-		 hdao.createHeater(h);
+	public void createHeater(@FormParam("nom") String nom, @FormParam("prenom") int consommation){
+		Heater h = new Heater(nom,consommation);
+		hdao.create(h);
 	 }
 }

@@ -2,14 +2,12 @@ package fr.istic.ranaivoson.nirina.persistence;
 
 import java.util.List;
 import java.util.ArrayList;
-import fr.istic.ranaivoson.nirina.metier.*;
+import fr.istic.ranaivoson.nirina.metier.Heater;
 import javax.persistence.EntityManager;
-//import fr.istic.ranaivoson.nirina.persistence.EntityManageHelper;
 
 public class HeaterDAO extends EntityManagerHelper{
 	
-	//private EntityManagerHelper emh;
-	public  void createHeater(List<Heater> heaters){
+	/*public  void createHeater(List<Heater> heaters){
 		EntityManager em = getEntityManager();
 		try{
 			beginTransaction();
@@ -25,9 +23,9 @@ public class HeaterDAO extends EntityManagerHelper{
 		}finally{
 			closeEntityManager();
 		}
-	}
+	}*/
 	
-	public  void createHeater(Heater heater){ //cas où il n'y a qu'un seul nouvel utilisateur
+	public  void create(Heater heater){ //cas où il n'y a qu'un seul nouvel utilisateur
 		EntityManager em = getEntityManager();
 		try{
 			beginTransaction();
@@ -35,8 +33,7 @@ public class HeaterDAO extends EntityManagerHelper{
 			commit();
 		}catch(Exception re)
 		{
-			//if(tx!=null)
-				//System.out.println("Something went wrong");
+			System.out.println("create<Heater> went wrong");
 			rollback();
 		}finally{
 			closeEntityManager();
@@ -47,10 +44,10 @@ public class HeaterDAO extends EntityManagerHelper{
 		List<Heater> res = new ArrayList<Heater>();
 		EntityManager em = getEntityManager();
 		try{
-			res = em.createQuery("select p from Heater p").getResultList();
+			res = em.createQuery("select h from Heater h").getResultList();
 		}catch(Exception re)
 		{
-			//System.out.println("Something went wrong");
+			System.out.println("retrieveAll<Heater> went wrong");
 		}finally{
 			closeEntityManager();
 		}
@@ -65,11 +62,40 @@ public class HeaterDAO extends EntityManagerHelper{
 			return res;
 		}catch(Exception re)
 		{
-			//System.out.println("Something went wrong");
+			System.out.println("retrieve<Heater>ById went wrong");
 		}finally{
 			closeEntityManager();
 		}
 		return res;
 	}
-	//pas de delete, pas d'update pour le moment ?
+	
+	public void update(Heater h){
+		EntityManager em = getEntityManager();
+		try{
+			beginTransaction();
+			em.merge(h);
+			commit();
+		}catch(Exception re)
+		{
+			System.out.println("update<Heater> went wrong");
+			rollback();
+		}finally{
+			closeEntityManager();
+		}
+	}
+	
+	public void delete(Heater h){
+		EntityManager em = getEntityManager();
+		try{
+			beginTransaction();
+			em.remove(h);
+			commit();
+		}catch(Exception re)
+		{
+			System.out.println("delete<Heater> went wrong");
+			rollback();
+		}finally{
+			closeEntityManager();
+		}
+	}
 }

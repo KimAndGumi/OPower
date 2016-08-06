@@ -31,7 +31,7 @@ public class Home implements Serializable{
 	public void setId(int id){
 		this.id = id;
 	}
-	public void setrooms(int rooms){
+	public void setRooms(int rooms){
 		this.rooms =rooms;
 	}
 	public void setTaille(int taille){
@@ -40,13 +40,13 @@ public class Home implements Serializable{
 	public void setHeaters(List<Heater> heaters){
 		this.heaters = new ArrayList<Heater>(heaters);
 	}
-	public void addHeaters(Heater heater){
+	public void addHeater(Heater heater){
 		this.heaters.add(heater);
 	}
 	public void setElecDevices(List<ElectronicDevice> elecdevices){
 		this.elecdevices = new ArrayList<ElectronicDevice>(elecdevices);
 	}
-	public void addElecDevices(ElectronicDevice elecdevice){
+	public void addElecDevice(ElectronicDevice elecdevice){
 		this.elecdevices.add(elecdevice);
 	}
 	
@@ -58,7 +58,7 @@ public class Home implements Serializable{
 	}
 	@Column(name="ROOMS")
 	@XmlElement
-	public String getRooms(){
+	public int getRooms(){
 		return this.rooms;
 	}
 	@Column(name="HSIZE")

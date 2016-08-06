@@ -2,14 +2,12 @@ package fr.istic.ranaivoson.nirina.persistence;
 
 import java.util.List;
 import java.util.ArrayList;
-import fr.istic.ranaivoson.nirina.metier.*;
+import fr.istic.ranaivoson.nirina.metier.ElectronicDevice;
 import javax.persistence.EntityManager;
-//import fr.istic.ranaivoson.nirina.persistence.EntityManageHelper;
 
 public class ElectronicDeviceDAO extends EntityManagerHelper{
 	
-	//private EntityManagerHelper emh;
-	public  void createElectronicDevice(List<ElectronicDevice> electronicDevices){
+	/*public  void createElectronicDevice(List<ElectronicDevice> electronicDevices){
 		EntityManager em = getEntityManager();
 		try{
 			beginTransaction();
@@ -25,9 +23,9 @@ public class ElectronicDeviceDAO extends EntityManagerHelper{
 		}finally{
 			closeEntityManager();
 		}
-	}
+	}*/
 	
-	public  void createElectronicDevice(ElectronicDevice electronicDevice){ //cas où il n'y a qu'un seul nouvel utilisateur
+	public  void create(ElectronicDevice electronicDevice){ //cas où il n'y a qu'un seul nouvel utilisateur
 		EntityManager em = getEntityManager();
 		try{
 			beginTransaction();
@@ -35,8 +33,7 @@ public class ElectronicDeviceDAO extends EntityManagerHelper{
 			commit();
 		}catch(Exception re)
 		{
-			//if(tx!=null)
-				//System.out.println("Something went wrong");
+			System.out.println("create<ElectronicDevice> went wrong");
 			rollback();
 		}finally{
 			closeEntityManager();
@@ -47,10 +44,10 @@ public class ElectronicDeviceDAO extends EntityManagerHelper{
 		List<ElectronicDevice> res = new ArrayList<ElectronicDevice>();
 		EntityManager em = getEntityManager();
 		try{
-			res = em.createQuery("select p from electronicDevice p").getResultList();
+			res = em.createQuery("select ed from electronicDevice ed").getResultList();
 		}catch(Exception re)
 		{
-			//System.out.println("Something went wrong");
+			System.out.println("retrieveAll<ElectronicDevice> went wrong");
 		}finally{
 			closeEntityManager();
 		}
@@ -65,11 +62,40 @@ public class ElectronicDeviceDAO extends EntityManagerHelper{
 			return res;
 		}catch(Exception re)
 		{
-			//System.out.println("Something went wrong");
+			System.out.println("retrieve<ElectronicDevice>ById went wrong");
 		}finally{
 			closeEntityManager();
 		}
 		return res;
 	}
-	//pas de delete, pas d'update pour le moment ?
+	
+	public void update(ElectronicDevice ed){
+		EntityManager em = getEntityManager();
+		try{
+			beginTransaction();
+			em.merge(ed);
+			commit();
+		}catch(Exception re)
+		{
+			System.out.println("update<ElectronicDevice> went wrong");
+			rollback();
+		}finally{
+			closeEntityManager();
+		}
+	}
+	
+	public void delete(ElectronicDevice ed){
+		EntityManager em = getEntityManager();
+		try{
+			beginTransaction();
+			em.remove(ed);
+			commit();
+		}catch(Exception re)
+		{
+			System.out.println("delete<ElectronicDevice> went wrong");
+			rollback();
+		}finally{
+			closeEntityManager();
+		}
+	}
 }

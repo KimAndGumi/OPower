@@ -1,7 +1,7 @@
 package fr.istic.ranaivoson.nirina;
 
-import fr.istic.ranaivoson.nirina.metier.*;
-import fr.istic.ranaivoson.nirina.persistence.*;
+import fr.istic.ranaivoson.nirina.metier.ElectronicDevice;
+import fr.istic.ranaivoson.nirina.persistence.ElectronicDeviceDAO;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -13,6 +13,7 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.core.MediaType;
 
 import java.util.List;
+//import java.Lang.Integer;
 
 @Path("/electronicdevice")
 public class ElectronicDeviceRest {
@@ -37,6 +38,6 @@ public class ElectronicDeviceRest {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	 public void createElectronicDevice(@FormParam("nom") String nom, @FormParam("consommation") int consommation){
 		 ElectronicDevice ed = new ElectronicDevice(nom,consommation);
-		 eddao.createElectronicDevice(ed);
+		 eddao.create(ed);
 	 }
 }
