@@ -3,6 +3,7 @@ package fr.istic.ranaivoson.nirina.persistence;
 import java.util.List;
 import java.util.ArrayList;
 import fr.istic.ranaivoson.nirina.metier.ElectronicDevice;
+import fr.istic.ranaivoson.nirina.persistence.EntityManagerHelper;
 import javax.persistence.EntityManager;
 
 public class ElectronicDeviceDAO extends EntityManagerHelper{

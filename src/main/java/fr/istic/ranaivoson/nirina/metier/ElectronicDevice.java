@@ -22,6 +22,10 @@ public class ElectronicDevice implements Serializable{
 		this.consommation = consommation;
 	}
 	
+	public void setId(int id){
+		this.id = id;
+	}
+	
 	public void setNom(String nom){
 		this.nom = nom;
 	}
@@ -30,7 +34,7 @@ public class ElectronicDevice implements Serializable{
 	}
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="ELECTRONICDEVICE_ID")
+	@Column(name="ELECTRONICDEVICE_ID", nullable = false, unique = true)
 	@XmlElement
 	public int getId(){
 		return this.id;

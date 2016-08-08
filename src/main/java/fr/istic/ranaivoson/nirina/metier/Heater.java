@@ -22,6 +22,10 @@ public class Heater implements Serializable{
 		this.consommation = consommation;
 	}
 	
+	public void setId(int id){
+		this.id = id;
+	}
+	
 	public void setNom(String nom){
 		this.nom = nom;
 	}
@@ -30,7 +34,7 @@ public class Heater implements Serializable{
 	}
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="HEATER_ID")
+	@Column(name="HEATER_ID", nullable = false, unique=true)
 	@XmlElement
 	public int getId(){
 		return this.id;

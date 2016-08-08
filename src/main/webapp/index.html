@@ -7,7 +7,85 @@
 	</head>
 	<body ng-app="opower">
 		<h1>Bienvenue sur OPower !</h1>
-		<div ng-controller='utilisateurs' ng-init='getListeUtilisateurs()'>
+		<div ng-controller='usersAdmin' ng-show='usersAdminVisible'>
+			Administration des utilisateurs
+			<button ng-click='showMenu()'>Afficher le menu</button>
+			<div ng-show='menuVisible'>
+				<ul>
+					<li ng-repeat='u in userList'>{{u.prenom}} {{u.nom}} <button ng-click='showUser(u.id)'>Afficher/éditer les infos</button></li>
+				</ul>
+				<button ng-click='ajouterUser()'>Ajouter un utilisateur</button>
+				<form ng-show='addUserVisible'>
+					Prénom : <input type='text' ng-model='formPrenom'><br>
+					Nom : <input type='text' ng-model='formNom'><br>
+					Mail : <input type='text' ng-model='formMail'><br>
+					<input type='submit' ng-click='post()' value='Valider'>
+				</form>
+				<form ng-show='showUserVisible'>
+					Prénom : <input type='text' ng-model='user.prenom'><br>
+					Nom : <input type='text' ng-model='user.nom'><br>
+					Mail : <input type='text' ng-model='user.mail'><br>
+					<label ng-repeat='h in homeList'>
+						<input type='checkbox' checklist-model="user.homes" checklist-value="h.id">{{h.rooms}} pièce(s), {{h.taille}}m²</input>
+					</label>
+					<input type='submit' ng-click='update()' value='Valider'>
+				</form>
+			</div>
+		</div>
+		<div ng-controller='homeAdmin' ng-show='homeAdminVisible'>
+			Administration des maisons
+			<button ng-click='showMenu()'>Afficher le menu</button>
+			<div ng-show='menuVisible'>
+				<ul>
+					<li ng-repeat='h in homeList'>{{h.rooms}} pièce(s), {{h.taille}}m² <button ng-click='showHome(h.id)'>Afficher/éditer les infos</button></li>
+				</ul>
+				<button ng-click='ajouterHome()'>Ajouter une maison</button>
+				<form ng-show='addHomeVisible'>
+					Nombre de pièces : <input type='text' ng-model='formRooms'><br>
+					Taille : <input type='text' ng-model='formTaille'><br>
+					<input type='submit' ng-click='post()' value='Valider'>
+				</form>
+				<form ng-show='showHomeVisible'>
+					Nombres de pièces : <input type='text' ng-model='home.rooms'><br>
+					Taille : <input type='text' ng-model='home.taille'><br>
+					<label ng-repeat='he in heaterList'>
+						<input type='checkbox' checklist-model="home.heaters" checklist-value="he.id">{{he.nom}} : {{he.consommation}}kW/h</input>
+					</label><br>
+					<input type='submit' ng-click='update()' value='Valider'>
+				</form>
+			</div>
+		</div>
+		<div ng-controller='heaterAdmin' ng-show='heaterAdminVisible'>
+			Administration des chauffages
+			<button ng-click='showMenu()'>Afficher le menu</button>
+			<div ng-show='menuVisible'>
+				<ul>
+					<li ng-repeat='h in heaterList'>{{h.nom}} : {{h.consommation}}kW/h</li>
+				</ul>
+				<button ng-click='ajouterHeater()'>Ajouter un chauffage</button>
+				<form ng-show='addHeaterVisible'>
+					Nom : <input type='text' ng-model='formNom'><br>
+					Consommation : <input type='text' ng-model='formConsommation'><br>
+					<input type='submit' ng-click='post()' value='Valider'>
+				</form>
+			</div>
+		</div>
+		<div ng-controller='elecDeviceAdmin' ng-show='elecDeviceAdminVisible'>
+			Administration des appareils électroniques
+			<button ng-click='showMenu()'>Afficher le menu</button>
+			<div ng-show='menuVisible'>
+				<ul>
+					<li ng-repeat='ed in eDeviceList'>{{ed.nom}} : {{ed.consommation}}kW/h</li>
+				</ul>
+				<button ng-click='ajouterEDevice()'>Ajouter un appareil électronique</button>
+				<form ng-show='addEDeviceVisible'>
+					Nom : <input type='text' ng-model='formNom'><br>
+					Consommation : <input type='text' ng-model='formConsommation'><br>
+					<input type='submit' ng-click='post()' value='Valider'>
+				</form>
+			</div>
+		</div>
+		<!--<div ng-controller='utilisateurs' ng-init='getListeUtilisateurs()'>
 			<ul>
 				<li ng-repeat="u in listeUtilisateurs">{{u.prenom}} {{u.nom}} <button ng-click='afficherInfos(u.id)'>Afficher les infos</button></li>
 			</ul>
@@ -22,7 +100,7 @@
 				
 				<!--Amis : <p ng-repeat="u in listeUtilisateurs"><input type='checkbox' name='ami'  value="{{u.id}}">{{u.prenom}} {{u.nom}} </p>-->
 				
-				<input type='submit' ng-click="poster()" value="Valider">
+				<!--<input type='submit' ng-click="poster()" value="Valider">
 			</form>
 		</div>
 		<div ng-controller='infoUtilisateur' ng-show='afficheOK'>
@@ -30,13 +108,14 @@
 			Nom : {{utilisateur.nom}}<br>
 			Mail : {{utilisateur.mail}}<br>
 			<button ng-click='afficheOK = false'>Cacher</button>
-		</div>
+		</div>-->
 		
 		<!-- Dependencies -->
 		<script src="js/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/angular.min.js"></script>
 		<script src="js/angular-resource.min.js"></script>	
+		<script src="js/checklist-model.js"></script>
 		<!-- Pokedex app -->
 		<script src="js/opower.js"></script>
 	</body>

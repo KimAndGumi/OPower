@@ -51,7 +51,7 @@ public class Home implements Serializable{
 	}
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="HOME_ID")
+	@Column(name="HOME_ID", nullable = false, unique = true)
 	@XmlElement
 	public int getId(){
 		return this.id;

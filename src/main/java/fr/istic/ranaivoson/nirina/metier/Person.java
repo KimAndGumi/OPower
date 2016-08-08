@@ -12,6 +12,7 @@ import java.util.ArrayList;
 @XmlRootElement(name = "person")
 public class Person implements Serializable{
 	
+	
 	private int id;
 	private String nom;
 	private String prenom;
@@ -51,7 +52,7 @@ public class Person implements Serializable{
 	
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="PERSON_ID")
+	@Column(name="PERSON_ID", nullable = false, unique = true)
 	@XmlElement
 	public int getId(){
 		return this.id;
