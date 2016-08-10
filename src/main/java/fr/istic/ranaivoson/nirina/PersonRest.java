@@ -50,6 +50,7 @@ public class PersonRest {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public void createPerson(@FormParam("mail") String email, @FormParam("nom") String nom, @FormParam("prenom") String prenom){
 		//System.out.println("Post request received");
+		//System.out.println(email+" "+nom+" "+prenom);
 		Person p = new Person(nom,prenom,email);
 		pdao.create(p);
 	}

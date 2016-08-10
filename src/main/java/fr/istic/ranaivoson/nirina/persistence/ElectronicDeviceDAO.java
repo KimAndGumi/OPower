@@ -45,7 +45,7 @@ public class ElectronicDeviceDAO extends EntityManagerHelper{
 		List<ElectronicDevice> res = new ArrayList<ElectronicDevice>();
 		EntityManager em = getEntityManager();
 		try{
-			res = em.createQuery("select ed from electronicDevice ed").getResultList();
+			res = em.createQuery("select ed from electronicdevice ed").getResultList();
 		}catch(Exception re)
 		{
 			System.out.println("retrieveAll<ElectronicDevice> went wrong");

@@ -36,7 +36,7 @@ public class HeaterRest {
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void createHeater(@FormParam("nom") String nom, @FormParam("prenom") int consommation){
+	public void createHeater(@FormParam("nom") String nom, @FormParam("consommation") int consommation){
 		Heater h = new Heater(nom,consommation);
 		hdao.create(h);
 	 }

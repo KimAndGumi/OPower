@@ -58,50 +58,88 @@ var opowerApp = angular.module('opower', ['ngResource']);
 	
 })*/
 
-opowerApp.controller('usersAdmin', function($scope,$http,$rootScope){
+opowerApp.controller('usersAdmin', function($scope,$http,$log,visibility){
+	$scope.usersAdminVisible = visibility.usersAdminVisible;
+	$scope.menuVisible = false;
+	$scope.addUserVisible = false;
+	$scope.showUserVisible = false;
+	$scope.userList = [];
 	$scope.showMenu = function(){
-		$scope.menuVisible = true;
-		$rootScope.homeAdminVisible = false;
-		$rootScope.heaterAdminVisible = false;
-		$rootScope.elecDeviceAdminVisible = false;
+		$http.get(opowerRestURI+'person/all'
+		).then(function successCallback(response){
+			$scope.userList = response.data;
+			$scope.menuVisible = true;
+			$scope.addUserVisible = false;
+			$scope.showUserVisible = false;
+			visibility.homeAdminVisible = false;
+			visibility.heaterAdminVisible = false;
+			visibility.elecDeviceAdminVisible = false;
+		},function errorCallback(response){
+			$log.log("probleme RetrieveAll")
+		});
+	}
+	$scope.ajouterUser = function(){
+		$scope.addUserVisible = true;
+		$scope.showUserVisible = false;
 	}
 	$scope.post = function(){
 		$http({
 			method : 'POST',
-			url : opowerRestURI+'person/',
+			url : opowerRestURI+'person',
 			headers : {'Content-Type':'application/x-www-form-urlencoded'},
 			data : 'mail='$scope.formMail
 			+'&nom='+$scope.formNom
 			+'$prenom='+$scope.formPrenom
-		}).success(
+		}).then(function successCallback(response){
 			$scope.addUserVisible = false;
 			$scope.showUserVisible = false;
-			$rootScope.usersAdminVisible = true;
-			$rootScope.homeAdminVisible = true;
-			$rootScope.heaterAdminVisible = true;
-			$rootScope.elecDeviceAdminVisible = true;
-		);
+			$scope.usersAdminVisible = true;
+			visibility.homeAdminVisible = true;
+			visibility.heaterAdminVisible = true;
+			visibility.elecDeviceAdminVisible = true;
+		},function errorCallback(response){
+			$log.log("probleme Post")
+		});
+	}
+	$scope.showUser = function(id){
+		$http.get(opowerRestURI+'person/'+id
+		).then(function successCallback(response){
+			$scope.user = response.data;
+			$scope.showUserVisible = true;
+		},function errorCallback(response){
+			$log.log("probleme getById")
+		}
+	}
+	$scope.homeList = function(){
+		$http.get(opowerRestURI+'home/all'
+		).then(response)
+		return response.data
 	}
 })
 
-opowerApp.controller('homeAdmin', function($scope,$http,$rootScope){
+opowerApp.controller('homeAdmin', function($scope,$http,visibility){
+	$scope.homeAdminVisible = visibility.homeAdminVisible;
 	$scope.showMenu = function(){
 		$scope.menuVisible = true;
-		$rootScope.homeAdminVisible = false;
-		$rootScope.heaterAdminVisible = false;
-		$rootScope.elecDeviceAdminVisible = false;
+		visibility.usersAdminVisible = false;
+		visibility.heaterAdminVisible = false;
+		visibility.elecDeviceAdminVisible = false;
 	}
 	$scope.post = function(){
 		$http({
 			method : 'POST',
-			url : opowerRestURI+'person/',
+			url : opowerRestURI+'home/',
 			headers : {'Content-Type':'application/x-www-form-urlencoded'},
 			data : 'mail='$scope.formMail
 			+'&nom='+$scope.formNom
 			+'$prenom='+$scope.formPrenom
 		}).success(
 			$scope.addUserVisible = false;
-			$scope.showUserVisible = false;
+			$scope.showUserVisible = false
+			$scope.homeAdminVisible = true;
+			visibility.usersAdminVisible = true;
+			visibility.heaterAdminVisible = true;
+			visibility.elecDeviceAdminVisible = true;	
 		);
 	}
 })
@@ -112,6 +150,19 @@ opowerApp.controller('homeAdmin', function($scope,$http,$rootScope){
 	var id;
 	return { prenom : prenom, nom : nom, id : id}
 })*/
+
+opowerApp.factory('visibility', function() {
+	var usersAdminVisible = true ;
+	var homeAdminVisible = true ;
+	var heaterAdminVisible = true ;
+	var elecDeviceAdminVisible = true ;
+	return {
+		"usersAdminVisible" : usersAdminVisible,
+		"homeAdminVisible" : homeAdminVisible,
+		"heaterAdminVisible" : heaterAdminVisible,
+		"elecDeviceAdminVisible" : elecDeviceAdminVisible
+	}
+});
 
 opowerApp.config(['$resourceProvider', function($resourceProvider) {
     $resourceProvider.defaults.stripTrailingSlashes = false;
